@@ -11,6 +11,7 @@ private:
     int bank;
 public:
     Store();
+    ~Store();
     //getters
     int getChances();
     int getBank();
