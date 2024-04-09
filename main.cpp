@@ -22,12 +22,18 @@
 #include <player.h>
 #include <store.h>
 #include <roulette.h>
+#include <plinko.h>
+#include <binarytree.h>
+#include <btnodes.h>
+#include <reportnodes.h>
+#include <report.h>
+
 using namespace std;
 
 int main()
 {
     //interface testing
-    // variables 
+    // variables
     string userName;
     int userMoney;
     int userresponse;
@@ -44,10 +50,33 @@ int main()
     // roulette tests
     store.buyStuff(p1);
     cout << "Let's start the games!" << endl;
+    //start of roulette loop FIX
     cout << "How many chances will you enter?" << endl;
-    cin >> userresponse; // left off
+    cin >> userresponse;
     p1.setChances((p1.getChances()-userresponse));
+    //storetests
+    cout << store.getBank() << endl;
+    cout << store.getChances() << endl;
+    store.setBank(800);
+    store.setChances(800);
+    cout << store.getBank() << endl;
+    cout << store.getChances() << endl;
+    //plinko tests FIX
+    Plinko plinko;
+    cout << plinko.printCourse() << endl;
+    cout << plinko.startPlinko(p1) << endl;
+    //tree test
+    binarytree tree;
+    btnodes* b1 = new btnodes(30);
+    tree.insert(b1, 0);
+    cout << tree.inorderPrint(tree.getRoot()) << endl;
 
+    //report test
+    Report report;
+    ReportNodes* r1 = new ReportNodes();
+    r1->setMoneySpent(5000);
+    report.insert(r1);
+    cout << report.printList(r1) << endl;
 
     cout << wheel.getResult(userresponse) << endl;
 
