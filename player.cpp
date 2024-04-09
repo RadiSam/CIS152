@@ -6,7 +6,7 @@ using namespace std;
 Player::Player() {
     name = "N/A";
     pocket = 0;
-} 
+}
 //sets player info and checks valid money amount entered
 Player::Player(string person, int money) {
     name = person;
@@ -25,7 +25,7 @@ void Player::setPocket(int money) {
     pocket = money;
 }
 void Player::setChances(int amount) {
-    if (amount <= 0) {
+    if (amount < 0) {
         cout << "Invalid input. Transaction cancelled" << endl;
         return;
     }
