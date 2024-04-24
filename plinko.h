@@ -4,6 +4,7 @@
 #include<ctime>
 #include<cstdlib>
 #include<player.h>
+#include<reportnodes.h>
 
 //plinko to scale players entire pocket
 class Plinko {
@@ -17,11 +18,11 @@ public:
     //getters
     int getResult() const;
     binarytree getTree() const;
-    //starts plinko with players money and returns it
-    int startPlinko(Player p1);
+    //takes player pocket to scale randomly and report node to update info
+    int startPlinko(Player p1, ReportNodes* node);
     //makes plinko course
     binarytree makeCourse();
-    //prints course
+    //prints course inorder
     string printCourse();
 };
 
