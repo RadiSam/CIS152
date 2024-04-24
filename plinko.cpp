@@ -1,7 +1,7 @@
 #include<plinko.h>
 #include<iostream>
 using namespace std;
-//constructors&destructor
+//constructor&destructor
 Plinko::Plinko() {
     course = makeCourse();
 }
@@ -14,9 +14,10 @@ binarytree Plinko::getTree() const {
     return course;
 }
 //starts plinko and returns players pocket
-int Plinko::startPlinko(Player p1) {
+int Plinko::startPlinko(Player p1, ReportNodes* node) {
     srand(time(0));
     int playerMoney = p1.getPocket();
+    int reportEarnings = playerMoney;
     double scaleNum;
     btnodes* temp = course.getRoot();
     //goes through the branches ending at the leaf nodes randomly
@@ -30,7 +31,24 @@ int Plinko::startPlinko(Player p1) {
         }
     }
     scaleNum = (double)temp->getScaleNum();
+    // gives feedback based on scaleNum received
+    if (scaleNum == 3.0) {
+        cout << "Woah, looks like you tripled your pocket!" << endl;
+    }
+    else if (scaleNum == 0.0) {
+        cout << "OH NO! looks like you lost all your money!" << endl;
+    }
+    else if (scaleNum == 1.0) {
+        cout << "Seems like nothing changed. " << endl;
+    }
+    else {
+        cout << "Nice, you got some money." << endl;
+    }
+    //updates info
     playerMoney *=scaleNum;
+    reportEarnings = playerMoney - reportEarnings;
+    node->setMoneyEarned(node->getMoneyEarned() + reportEarnings);
+    node->setPResult(to_string(scaleNum));
     return playerMoney;
 }
 //makes preset course
@@ -107,12 +125,12 @@ string Plinko::printCourse() {
     return result;
 }
 
-/* tree diagram
-                10 -1
-       10                10 -2
-   10     10         10       10 -4
- 10  10  10  10   10   10  10  10 -8
-1 1 1 1  1 1 1 1  1 1 1 1 1 1  1 1  -16
+/* tree diagrams
+                10                  :1
+       10                10         :2
+   10     10         10       10    :4
+ 10  10  10  10   10   10  10  10   :8
+1 1 1 1  1 1 1 1  1 1 1 1 1 1  1 1  :16
 
                             4
              1.9                             1.9
