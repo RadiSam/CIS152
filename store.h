@@ -1,6 +1,7 @@
 #ifndef STORE_H
 #define STORE_H
 #include <player.h>
+#include <report.h>
 #include <iostream>
 
 class Store {
@@ -12,11 +13,14 @@ private:
 public:
     Store();
     ~Store();
+    //setters
+    void setChances(int chancesBought);
+    void setBank(int moneySpent);
     //getters
-    int getChances();
-    int getBank();
-    //allows player to buy
-    void buyStuff(Player &name);
+    int getChances() const;
+    int getBank() const;
+    //allows player to buy and updates info
+    void buyStuff(Player &name, ReportNodes* node);
 
 };
 
