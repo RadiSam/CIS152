@@ -48,7 +48,11 @@ void Store::buyStuff(Player &name, ReportNodes* node) {
             cin >> chancesWanted;
             // if cannot afford amount of wanted chances
             if ((25*chancesWanted) > name.getPocket()) {
-                cout << "Sorry. Insufficient funds. Come back next time." << endl;
+                cout << "Sorry, there seems to be insufficient funds. Come back next time." << endl;
+            }
+            // catches negative chances
+            else if (chancesWanted < 0) {
+                cout << "Sorry, we cannot accept negative inputs. Come back next time." << endl;
             }
             // buys chances, updates info, and prints player info
             else {
