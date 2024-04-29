@@ -48,7 +48,7 @@ bool Roulette::queueAvailable(int chances, queue<int> wheel) {
     int wheelSize = wheel.size();
     if (chances > wheelSize) {
         cout << "Woah hold on, that's too many chances the wheel can handle." <<
-            " Try again with a smaller amount next time(Max is 20)." << endl;
+                " Try again with a smaller amount next time(Max is " << wheelSize << ")." << endl;
         return false;
     }
     else {
