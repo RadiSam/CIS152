@@ -51,21 +51,22 @@ int main()
     // game options: r = Roulette, p = Plinko, s = Store , q = Quit, b = Bio
     // Starting prompt
     cout << "Welcome to the Relief Roulette game!" << endl;
-    cout << "To start please enter a name and amount of money you would like to start with..." << endl;
+    cout << "To start please enter a name: ";
     // uses getline for input verification
     getline(cin, userString);
+    cout << "And amount of money you would like to start with: ";
     getline(cin, userStartPocket);
     // try catch block
     try {
         userInt = stoi(userStartPocket);
     }
+    // exits program when player pocket input is invalid
     catch (const exception& invalid){
-        cout << "Invalid amount entered. Try again with some numbers." << endl;
+        cout << "Invalid amount entered. Try again with some numbers next time." << endl;
         return 0;
     }
-    // exits program when player pocket input is invalid
+    // creates and prints player data
     Player p1(userString, userInt);
-    // prints player data
     cout << p1.printTitle() << endl;
     cout << "Alright let's get started with the games!" << endl;
     cout << "But first let's go to the store to buy chances!" << endl;
@@ -78,13 +79,17 @@ int main()
         }
         //plinko
         else if (mode == "p") {
+            //user prompt and input
             cout << "Welcome to plinko, here you wager all your money in order to get a return of 3 times the amount,"
                 << " lose all your money, or somewhere in between! \nIt costs 3 chances to play, will you pay yes or no?" << endl;
             cin >> userString;
+            // when player will play plinko
             if (userString == "yes") {
+                // checks the player has enough chances to play
                 if (p1.getChances() < PLINKO_CHANCE_COST) {
                     cout << "Oops, looks like there isn't enough chances to play. Come back next time!" << endl;
                 }
+                // updates info and plays plinko
                 else {
                     p1.setChances(p1.getChances() - PLINKO_CHANCE_COST);
                     report.search(round)->setChancesSpent(report.search(round)->getChancesSpent() + PLINKO_CHANCE_COST);
@@ -99,11 +104,14 @@ int main()
         }
         //roulette
         else if (mode == "r") {
+            // updates wheel, user prompt and input
             wheel.setQueue(WHEEL_SIZE);
             cout << "Let's start the Wheel!" << endl;
             cout << "How many chances will you enter?" << endl;
             cin >> userInt;
+            // checks valid input
             int validChance = p1.validChanceInput(userInt);
+            // updates info and starts wheel
             if (wheel.queueAvailable(validChance, wheel.getWheel())) {
                 p1.setChances(p1.getChances() - validChance);
                 report.search(round)->setChancesSpent(report.search(round)->getChancesSpent() + validChance);
@@ -112,22 +120,25 @@ int main()
                 if (validChance != ZERO) {round += ROUND_INCREMENT;}
             }
         }
-        //player
+        //prints player data
         else if (mode == "b") {
             cout << p1.printTitle() << endl;
         }
         //quit
         else if (mode == "q") {
+            // ending prompt for report
             cout << "Thanks for playing!" << endl;
             cout << "Here is a report of your decisions and stats from the game!" <<
                 "\nWould you like a chronological report or incremental based on Earnings, choose 1 or 2 for respective options." << endl;
             cin >> userString;
+            // prints final stats and chosen report
             cout << "Final Stats: \n" << p1.printTitle() << endl;
             if (userString == "1") {cout << report.printList(round) << endl;}
             else if (userString == "2") {cout << report.printEarnedLtoH(round) << endl;}
             else {cout << "Printing chronological report by default... " << report.printList(round) << endl;}
             break;
         }
+        // when input not following the given characters does not match found
         else {
             cout << "I'm sorry, there doesn't seem to be an option for " << mode << " . Please try again with the following options." << endl;
         }
@@ -137,9 +148,12 @@ int main()
             "b - Let's you look at your bio of how much money and chances you have.\nq - Let's you quit the game." << endl;
         cin >> mode;
     }
+    // when input is not of same type, terminates program 
     if (!cin) {
-        cout << "Looks like something went wrong!. Try again another time." << endl;
+        cout << "Looks like something went wrong!. Try using a different input time." << endl;
+        return 0;
     }
+    // when player meets the end of rounds, same prompt as quit title
     if (round == MAX_ROUNDS) {
         cout << "Thanks for playing!" << endl;
         cout << "Here is a report of your decisions and stats from the game!" <<
