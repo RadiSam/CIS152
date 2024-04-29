@@ -36,7 +36,7 @@ int Plinko::startPlinko(Player p1, ReportNodes* node) {
         cout << "Woah, looks like you tripled your pocket!" << endl;
     }
     else if (scaleNum == 0.0) {
-        cout << "OH NO! looks like you lost all your money!" << endl;
+        cout << "OH NO! It looks like you lost all your money!" << endl;
     }
     else if (scaleNum == 1.0) {
         cout << "Seems like nothing changed. " << endl;
