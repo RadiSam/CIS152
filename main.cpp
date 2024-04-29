@@ -148,9 +148,12 @@ int main()
             "b - Let's you look at your bio of how much money and chances you have.\nq - Let's you quit the game." << endl;
         cin >> mode;
     }
-    // when input is not of same type, terminates program 
+    // when input is not of same type, terminates program and gives chrono report along with final stats
     if (!cin) {
-        cout << "Looks like something went wrong!. Try using a different input time." << endl;
+        cout << "Looks like something went wrong!. Try using a different input next time." << endl;
+        cout << "Here is a report of your decisions and stats from the game!" << endl;
+        cout << "Final Stats: \n" << p1.printTitle() << endl;
+        cout << report.printList(round) << endl;
         return 0;
     }
     // when player meets the end of rounds, same prompt as quit title
